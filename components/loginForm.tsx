@@ -16,7 +16,7 @@ export default function LoginForm() {
     password: string
   }) => {
     console.log("Logging in");
-    axios.post('http://localhost:9090/login', loginCredentials)
+    axios.post('http://localhost:9090/login', {username: loginCredentials.email, password: loginCredentials.password})
         .then(response => {
             localStorage.setItem('jwtToken', response.data.token);
             console.log(localStorage.getItem('jwtToken'));
