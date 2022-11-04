@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { TextField, Button, AlertTitle, Alert } from "@mui/material";
+import { TextField, Button, AlertTitle, Alert, Box } from "@mui/material";
 import * as Yup from "yup";
 import axios from 'axios';
 import { useRouter } from "next/router";
@@ -40,36 +40,37 @@ export default function LoginForm() {
   });
 
   return (
-    <div>
+    <Box sx={{position: 'absolute',
+              left: '50%',
+              top: '35%',
+              transform: 'translate(-50%, -50%)'}}>
       <form onSubmit={formik.handleSubmit}>
       {alertActive ?
       <Alert onClose={() => setAlertActive(false)} variant="filled" severity="error">
       <AlertTitle>Login Error</AlertTitle>
       Invalid username or password
       </Alert> :
-      <div></div>
+      <Box></Box>
       }
-        <div className="form">
+        <Box mx={2}>
           <TextField
           id="email"
           name="email"
           type="email"
           placeholder="Email"
-          margin="normal"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           ></TextField>
-        </div>
-        <div>
+        </Box>
+        <Box>
           <TextField
           id="password"
           name="password"
           type="password"
           placeholder="*********"
-          margin="normal"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
@@ -77,10 +78,10 @@ export default function LoginForm() {
           helperText={formik.touched.password && formik.errors.password}
           ></TextField>
           <Button variant="outlined" type="submit">Submit</Button>
-        </div>
+        </Box>
 
       </form>
-    </div>
+    </Box>
    );
   }
 

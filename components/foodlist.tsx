@@ -1,10 +1,12 @@
 import { Box, Button, List, ListItem, Modal, Typography, TextField } from "@mui/material";
+import { borderColor } from "@mui/system";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { json } from "stream/consumers";
-import FoodCreate from "./foodcreate";
-import Navbar from "./navbar";
+import { useEffect, useState } from "react";
+import FoodCreate from "./FoodCreate";
+import FoodDelete from "./FoodDelete";
+import FoodUpdate from "./FoodUpdate";
+import Navbar from "./Logout";
 
 
 
@@ -62,60 +64,94 @@ const Food = () => {
     }
 
   return (
-  <><Navbar />
-  <FoodCreate />
-  <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
-    <List>
-      {foods.length ? foods.map((food, index) => (
-        <ListItem key={index}>
-          <Typography>{food.name}</Typography>
-        <Box>
-          <Button onClick={handleUpdateOpen}>Update</Button>
-          <Modal
-            open={openUpdate}
-            onClose={handleUpdateClose}>
-            <Box sx={style}>
-              <Typography variant="h6" component="h2">
-                {food.name}
-              </Typography>
-              <Box sx={style}>
-              <Typography>
-                Name
-              </Typography>
-              <TextField defaultValue={food.name} />
-              <Typography>
-                Details
-              </Typography>
-              <Typography>
-                Unit
-              </Typography>
-              <TextField defaultValue={food.details ? food.details.unit : ''} />
-              <Typography>
-                Amount
-              </Typography>
-              <TextField defaultValue={food.details ? food.details.amount : ''}/>
-              </Box>
-            </Box>
-          </Modal>
-          <Button onClick={handleDeleteOpen}>Delete</Button>
-          <Modal
-            open={openDelete}
-            onClose={handleDeleteClose}>
-            <Box sx={style}>
-              <Typography variant="h6" component="h2">
-                Are you sure you want to delete {food.name}?
-              </Typography>
-              <Button onClick={() => {deleteFood(food._id)}}>Yes</Button>
-              <Button onClick={handleDeleteClose}>No</Button>
-            </Box>
-          </Modal>
-        </Box>
 
-        </ListItem>
-      )) : "There is no food"}
-    </List>
+    <Box sx={{position: 'absolute',
+              left: '50%',
+              top: '25%',
+              transform: 'translate(-50%, -50%)'}}>
+      <List>
+        {foods.length ? foods.map((food) => (
+          <Box key={food._id} display="flex" alignItems="center">
+            <Box sx={{border: 1,
+                      borderRadius: 5,
+                      borderColor: 'warning.main',
+                      mx: 'auto',
+                      width: 200,
+                      textAlign: 'center',}}>
+            <Typography variant="overline">{food.name}</Typography>
+            </Box>
+            <FoodUpdate
+            foodName = {food.name}
+            foodAmount = {food.details ? food.details.amount : ''}
+            foodUnit = {food.details ? food.details.unit : ''}
+            foodId = {food._id}
+            />
+            <FoodDelete
+            foodId = {food._id}
+             />
+          </Box>
+        )) : <Typography> There is no food in the database. </Typography>}
+      </List>
+    </Box>
 
-  </Box></> );
+  );
 }
 
 export default Food;
+
+  // <><Navbar />
+  // <FoodCreate />
+  // <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+  //   <List>
+  //     {foods.length ? foods.map((food, index) => (
+  //       <ListItem key={index}>
+  //       <Box display="flex" alignItems="center">
+  //         <Box>
+  //         <Typography>{food.name}</Typography>
+  //         </Box>
+  //         <Button onClick={handleUpdateOpen}>Update</Button>
+  //         <Modal
+  //           open={openUpdate}
+  //           onClose={handleUpdateClose}>
+  //           <Box sx={style}>
+  //             <Typography variant="h6" component="h2">
+  //               {food.name}
+  //             </Typography>
+  //             <Box sx={style}>
+  //             <Typography>
+  //               Name
+  //             </Typography>
+  //             <TextField defaultValue={food.name} />
+  //             <Typography>
+  //               Details
+  //             </Typography>
+  //             <Typography>
+  //               Unit
+  //             </Typography>
+  //             <TextField defaultValue={food.details ? food.details.unit : ''} />
+  //             <Typography>
+  //               Amount
+  //             </Typography>
+  //             <TextField defaultValue={food.details ? food.details.amount : ''}/>
+  //             </Box>
+  //           </Box>
+  //         </Modal>
+  //         <Button onClick={handleDeleteOpen}>Delete</Button>
+  //         <Modal
+  //           open={openDelete}
+  //           onClose={handleDeleteClose}>
+  //           <Box sx={style}>
+  //             <Typography variant="h6" component="h2">
+  //               Are you sure you want to delete {food.name}?
+  //             </Typography>
+  //             <Button onClick={() => {deleteFood(food._id)}}>Yes</Button>
+  //             <Button onClick={handleDeleteClose}>No</Button>
+  //           </Box>
+  //         </Modal>
+  //       </Box>
+
+  //       </ListItem>
+  //     )) : "There is no food"}
+  //   </List>
+
+  // </Box></>
