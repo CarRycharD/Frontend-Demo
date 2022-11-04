@@ -1,23 +1,23 @@
-import { Box, Button, Dialog, TextField} from "@mui/material";
+import { Box } from "@mui/system";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useState } from "react";
-import * as Yup from 'yup';
+import { foodValidationSchema } from "../utils/FoodValidation";
+import { FoodEntry } from "../utils/Interfacecs";
+import FoodModul from "./FoodModul";
 
 
 const FoodCreate = () => {
-
-  const [open, setOpen] = useState(false);
 
   const createNewFood = (name: string, unit?: string, amount?: number) => {
 
     let foodDetails;
 
-    if ( unit === undefined && amount === undefined) {
+    if ( unit === '' && amount === 0) {
       foodDetails = {"name": name}
     } else {
       foodDetails = {"name": name, "details": {"unit": unit, "amount": amount}}
     }
+
     axios
     .post('http://localhost:9090/api/v1/food/', foodDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`}})
     .then((response) => console.log(response))
@@ -27,72 +27,24 @@ const FoodCreate = () => {
   const formik = useFormik({
     initialValues: {
       name: '',
-      unit: '',
-      amount: ''
+      amount: 0,
+      unit: ''
     },
-    validationSchema: Yup.object().shape({
-      name: Yup.string().required("Required"),
-      unit: Yup.string().when('amount', {
-        is: (amount: any) => amount,
-        then:Yup.string().required()
-      }),
-      amount: Yup.number().when('unit', {
-        is: (unit: any) => unit,
-        then:Yup.number().required()
-      }),
-
-    },
-    [['unit', 'amount']]),
-    onSubmit: (values) => {
-      createNewFood(values.name);
+    validationSchema: foodValidationSchema,
+    onSubmit: (values: FoodEntry) => {
+      createNewFood(values.name, values.unit, values.amount);
     }
   });
 
   return (
-    <Box m={20} textAlign='center'>
-      <Button variant="contained" color="error" onClick={() => setOpen(true)}>Add new food</Button>
-      <Dialog fullWidth maxWidth={'sm'}  open={open} onClose={() => setOpen(false)}>
-      <form onSubmit={formik.handleSubmit}>
-      <TextField
-      name="name"
-      size="medium"
-      type="text"
-      variant="outlined"
-      placeholder="Name"
-      margin="dense"
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values.name}
-      error={formik.touched.name && Boolean(formik.errors.name)}
-      helperText={formik.touched.name && formik.errors.name}
-      /><TextField
-      name="unit"
-      size="medium"
-      type="text"
-      variant="outlined"
-      placeholder="Unit"
-      margin="dense"
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values.unit}
-      error={formik.touched.unit && Boolean(formik.errors.unit)}
-      helperText={formik.touched.unit && formik.errors.unit}
-      /><TextField
-      name="amount"
-      size="medium"
-      type="number"
-      variant="outlined"
-      placeholder="Amount"
-      margin="dense"
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values.amount}
-      error={formik.touched.amount && Boolean(formik.errors.amount)}
-      helperText={formik.touched.amount && formik.errors.amount}
+    <Box sx={{position: 'absolute',
+              left: '50%',
+              top: '20%',
+              transform: 'translate(-50%, -50%)'}}>
+      <FoodModul
+      formik={formik}
+      button='Create'
       />
-      <Button type="submit">Submit</Button>
-      </form>
-      </Dialog>
     </Box>
    );
 }
