@@ -4,6 +4,9 @@ import * as Yup from "yup";
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { createButton } from "./FoodModul";
+
+const loginButton = createButton
 
 export default function LoginForm() {
 
@@ -18,9 +21,10 @@ export default function LoginForm() {
     console.log("Logging in");
     axios.post('http://localhost:9090/login', {username: loginCredentials.email, password: loginCredentials.password})
         .then(response => {
-            localStorage.setItem('jwtToken', response.data.token);
-            router.push('/');
-        }).catch(err => setAlertActive(true))
+          localStorage.setItem('jwtToken', response.data.token);
+          console.log(response);
+          router.push('/');
+        }).catch(() => setAlertActive(true))
 
   }
 
@@ -46,13 +50,13 @@ export default function LoginForm() {
               transform: 'translate(-50%, -50%)'}}>
       <form onSubmit={formik.handleSubmit}>
       {alertActive ?
-      <Alert onClose={() => setAlertActive(false)} variant="filled" severity="error">
+      <Alert sx={{my: 5}} onClose={() => setAlertActive(false)} variant="filled" severity="error">
       <AlertTitle>Login Error</AlertTitle>
       Invalid username or password
       </Alert> :
       <Box></Box>
       }
-        <Box mx={2}>
+        <Box mx={2} mb={2}>
           <TextField
           id="email"
           name="email"
@@ -65,7 +69,7 @@ export default function LoginForm() {
           helperText={formik.touched.email && formik.errors.email}
           ></TextField>
         </Box>
-        <Box>
+        <Box mx={2} mb={2}>
           <TextField
           id="password"
           name="password"
@@ -77,9 +81,9 @@ export default function LoginForm() {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
           ></TextField>
-          <Button variant="outlined" type="submit">Submit</Button>
-        </Box>
 
+        </Box>
+        <Box mx={2}><Button sx={{bgcolor: 'success.light',borderRadius: 5,color: 'white',':hover': {bgcolor: 'white',color: 'success.light',}}} type="submit">Submit</Button></Box>
       </form>
     </Box>
    );

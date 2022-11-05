@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import { foodValidationSchema } from "../utils/FoodValidation";
-import { FoodEntry } from "../utils/Interfacecs";
 import FoodModul from "./FoodModul";
 
 
@@ -30,7 +29,7 @@ const FoodUpdate = ({foodName, foodAmount, foodUnit, foodId} : {foodName: string
       unit: '' || foodUnit
     },
     validationSchema: foodValidationSchema,
-    onSubmit: (values: FoodEntry) => {
+    onSubmit: (values) => {
       updateFood(values.name, values.unit, values.amount);
     },
 

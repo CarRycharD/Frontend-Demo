@@ -1,3 +1,18 @@
+## Missing concepts
+
+Hi!
+
+Well, it was a lot of fun, I learned a lot from this assignment. Even with an extended deadline, I could not solve all the tasks.
+My main problem was not being able to send props to the dynamic food routes, and this causes some dirty steps in my code, as well as missing better styling and vercel installation.
+I will definitely finish it for my own entertainment and development, but I need some rest
+because I had to work overtime in the past weeks and my free time in the past days was only about this task. I feel like my brain is slowly shutting down. :D
+
+I hope this will be enough for me to have the opportunity to work with you.
+
+I wish you all the best!
+
+
+
 ## frontend-next.js-task
 
 The main goal is to have a **Next.js** application, which is able to **authenticate** a user, and perform CRUD operations using your previously developed backend provider.

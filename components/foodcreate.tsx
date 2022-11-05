@@ -5,6 +5,10 @@ import { foodValidationSchema } from "../utils/FoodValidation";
 import { FoodEntry } from "../utils/Interfacecs";
 import FoodModul from "./FoodModul";
 
+const createButton = {position: 'absolute',
+left: '50%',
+bottom: '100%',
+transform: 'translate(-50%, -50%)'};
 
 const FoodCreate = () => {
 
@@ -19,7 +23,7 @@ const FoodCreate = () => {
     }
 
     axios
-    .post('http://localhost:9090/api/v1/food/', foodDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`}})
+    .post(`http://localhost:9090/api/v1/food/`, foodDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`}})
     .then((response) => console.log(response))
     .catch((error) => console.log(error) )
   }
@@ -37,10 +41,7 @@ const FoodCreate = () => {
   });
 
   return (
-    <Box sx={{position: 'absolute',
-              left: '50%',
-              top: '20%',
-              transform: 'translate(-50%, -50%)'}}>
+    <Box sx={createButton}>
       <FoodModul
       formik={formik}
       button='Create'

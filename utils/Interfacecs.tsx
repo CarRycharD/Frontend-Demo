@@ -1,1 +1,3 @@
-export type FoodEntry = { name: string, amount: number, unit: string }
+export type FoodEntry = {
+  [x: string]: any; name: string, amount: number, unit: string
+}
