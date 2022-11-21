@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useFormik } from "formik";
+import { PORT } from "../utils/config";
 import { foodValidationSchema } from "../utils/FoodValidation";
+import { refresh } from "../utils/Refresh";
 import FoodModul from "./FoodModul";
 
 
@@ -17,15 +19,15 @@ const FoodUpdate = ({foodName, foodAmount, foodUnit, foodId} : {foodName: string
     }
 
     axios
-    .put(`http://localhost:9090/api/v1/food/${foodId}`, foodDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`}})
-    .then((response) => console.log(response))
+    .put(`http://localhost:${PORT}/api/v1/food/${foodId}`, foodDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`}})
+    .then(refresh)
     .catch((error) => console.log(error))
   }
 
   const formik = useFormik({
     initialValues: {
       name: '' || foodName,
-      amount: 0 || foodAmount,
+      amount: '' || foodAmount,
       unit: '' || foodUnit
     },
     validationSchema: foodValidationSchema,

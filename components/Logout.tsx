@@ -10,9 +10,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const logout = () => {
-    console.log(localStorage.getItem("jwtToken"))
     localStorage.removeItem("jwtToken")
-    console.log(localStorage.getItem("jwtToken"))
     router.push('/login')
 
   };

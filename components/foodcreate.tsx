@@ -1,14 +1,12 @@
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useFormik } from "formik";
+import { foodCreateStyles } from "../styles/styles";
+import { PORT } from "../utils/config";
 import { foodValidationSchema } from "../utils/FoodValidation";
-import { FoodEntry } from "../utils/Interfacecs";
+import { FoodEntry } from "../utils/Interfaces";
+import { refresh } from "../utils/Refresh";
 import FoodModul from "./FoodModul";
-
-const createButton = {position: 'absolute',
-left: '50%',
-bottom: '100%',
-transform: 'translate(-50%, -50%)'};
 
 const FoodCreate = () => {
 
@@ -23,9 +21,8 @@ const FoodCreate = () => {
     }
 
     axios
-    .post(`http://localhost:9090/api/v1/food/`, foodDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`}})
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error) )
+    .post(`http://localhost:${PORT}/api/v1/food/`, foodDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`}})
+    .then(refresh)
   }
 
   const formik = useFormik({
@@ -41,7 +38,7 @@ const FoodCreate = () => {
   });
 
   return (
-    <Box sx={createButton}>
+    <Box sx={foodCreateStyles}>
       <FoodModul
       formik={formik}
       button='Create'

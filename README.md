@@ -1,18 +1,3 @@
-## Missing concepts
-
-Hi!
-
-Well, it was a lot of fun, I learned a lot from this assignment. Even with an extended deadline, I could not solve all the tasks.
-My main problem was not being able to send props to the dynamic food routes, and this causes some dirty steps in my code, as well as missing better styling and vercel installation.
-I will definitely finish it for my own entertainment and development, but I need some rest
-because I had to work overtime in the past weeks and my free time in the past days was only about this task. I feel like my brain is slowly shutting down. :D
-
-I hope this will be enough for me to have the opportunity to work with you.
-
-I wish you all the best!
-
-
-
 ## frontend-next.js-task
 
 The main goal is to have a **Next.js** application, which is able to **authenticate** a user, and perform CRUD operations using your previously developed backend provider.
@@ -28,10 +13,6 @@ The login form should be a separate component and have two fields:
 - password - should not be visible by default (for extra finesse, add a button to toggle password visibility)
 
 Any occurring errors regarding the inputs should be displayed below the respected fields.
-
-If the credentials entered are invalid (wrong username / password), the response from the server should be displayed in the form of a **toast** or any other feedback type component. For toasts use the react-toastify library, otherwise a material ui component for this purpose will do just fine.
-
-- https://www.npmjs.com/package/react-toastify
 
 Upon successful authentication the token returned from the backend should be stored in localStorage and the user should be redirected to the _Home_ page.
 
@@ -59,11 +40,7 @@ This task consists of 5 smaller subtasks:
 
 ## Task 4 - Custom 404 page
 
-If the user happens to wander off to a route that is non-existent (not defined inside the _pages_ folder), a custom error page should be shown. Here you can live out your artistic fantasies. Surprise us with something.
-
-More info on this can be found in the Next.js docs:
-
-- https://nextjs.org/docs
+If the user happens to wander off to a route that is non-existent (not defined inside the _pages_ folder), a custom error page should be shown. Here you can live out your artistic fantasies.
 
 ## Task 5 - Styling
 
@@ -73,26 +50,4 @@ Use the React Material UI library for certain components if you find it necessar
 
 If you need to style things on your own - look for inspiration on the web, find something that fits the current design trends (clean, minimalistic, a bit rounded, basically _simple and elegant_) and the look of your website as well,. Make sure to use .scss files respectively for each component you would like to style.
 
-Global styles should be added to the _global.scss_
 
-## Task 6 (_OPTIONAL_) - Deploy to Vercel
-
-If all other tasks are completed, you can try to deploy your wonderful application for the whole world to see.
-
-Use [Vercel](https://www.vercel.com/), a free and easy to use service to reach this goal:
-
-- https://nextjs.org/docs/deployment
-
----
-
-```
-
-
-
-gl hf
-
-
-
-```
-
-_Make sure to reach out to us trough Slack if you have any questions!_
